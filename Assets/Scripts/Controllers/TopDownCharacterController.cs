@@ -10,11 +10,11 @@ public class TopDownCharacterController : MonoBehaviour
     private float _timeSinceLastAttack = float.MaxValue;
     protected bool isAttacking { get; set; }
 
-    protected CharacterStatsHandler _Stats { get; private set; } // 여기는 생성자?
+    protected CharacterStatsHandler Stats { get; private set; } // 여기는 생성자?
 
     protected virtual void Awake()
     {
-        _Stats = GetComponent<CharacterStatsHandler>();
+        Stats = GetComponent<CharacterStatsHandler>();
     }
 
     protected virtual void Update()
@@ -24,18 +24,18 @@ public class TopDownCharacterController : MonoBehaviour
 
     private void HandleAttackDelay()
     {
-        if (_Stats.CurrentStats.attackSO == null)
+        if (Stats.CurrentStats.attackSO == null)
             return;
 
-        if (_timeSinceLastAttack <= _Stats.CurrentStats.attackSO.delay)
+        if (_timeSinceLastAttack <= Stats.CurrentStats.attackSO.delay)
         {
             _timeSinceLastAttack += Time.deltaTime;
         }
 
-        if (isAttacking && _timeSinceLastAttack > _Stats.CurrentStats.attackSO.delay)
+        if (isAttacking && _timeSinceLastAttack > Stats.CurrentStats.attackSO.delay)
         {
             _timeSinceLastAttack = 0f;
-            CallAttackEvent(_Stats.CurrentStats.attackSO);
+            CallAttackEvent(Stats.CurrentStats.attackSO);
         }
     }
 

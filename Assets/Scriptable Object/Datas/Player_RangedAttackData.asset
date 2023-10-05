@@ -18,10 +18,10 @@ MonoBehaviour:
   speed: 50
   target:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isOnKnockback: 1
-  knowbackPower: 10
-  knowbackTime: 0.1
+  knockbackPower: 5
+  knockbackTime: 0.1
   bulletNameTag: Arrow
   duration: 5
   spread: 4

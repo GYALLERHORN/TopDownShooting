@@ -19,7 +19,7 @@ public class TopDownRangeEnemyContoller : TopDownEnemyController
         {
             if (distance <= shootRange)
             {
-                int layerMaskTarget = _Stats.CurrentStats.attackSO.target;
+                int layerMaskTarget = Stats.CurrentStats.attackSO.target;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 11f, (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))

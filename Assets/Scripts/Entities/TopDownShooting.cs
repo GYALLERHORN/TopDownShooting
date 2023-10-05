@@ -11,6 +11,7 @@ public class TopDownShooting : MonoBehaviour
     [SerializeField] private Transform projectileSpawnPosition;
     private Vector2 _aimDirection = Vector2.right;
 
+    public AudioClip shootingClip;
 
     private void Awake()
     {
@@ -56,6 +57,10 @@ public class TopDownShooting : MonoBehaviour
             projectileSpawnPosition.position,
             RotateVector(_aimDirection, angle),
             rangedAttackData);
+        if (shootingClip)
+        {
+            SoundManager.PlayClip(shootingClip);
+        }
     }
 
     private static Vector2 RotateVector(Vector2 v, float degree)

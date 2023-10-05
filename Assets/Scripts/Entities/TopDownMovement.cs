@@ -11,7 +11,7 @@ public class TopDownMovement : MonoBehaviour // 캐릭터의 움직임
     private Rigidbody2D _rigidbody;
 
     private Vector2 _knockBack = Vector2.zero;
-    private float _knockbackDuration = 0.0f;
+    private float knockbackDuration = 0.0f;
     private void Awake()
     {
         _controller = GetComponent<TopDownCharacterController>();
@@ -28,16 +28,26 @@ public class TopDownMovement : MonoBehaviour // 캐릭터의 움직임
     {
         ApplyMove(_moveDirection);
 
-        if (_knockbackDuration > 0)
+        if (knockbackDuration > 0)
         {
-            _knockbackDuration -= Time.fixedDeltaTime;
+            knockbackDuration -= Time.fixedDeltaTime;
         }
     }
 
     public void ApplyKnockback(Transform other, float power, float duration)
     {
-        _knockbackDuration = duration;
+        knockbackDuration = duration;
         _knockBack = -(other.position - transform.position).normalized * power;
+    }
+
+    private void ApplyMovement(Vector2 direction)
+    {
+        direction = direction * _Stats.CurrentStats.speed;
+        if (knockbackDuration > 0f)
+        {
+            direction += _knockBack;
+        }
+        _rigidbody.velocity = direction;
     }
 
     private void Move(Vector2 direction)
@@ -47,7 +57,7 @@ public class TopDownMovement : MonoBehaviour // 캐릭터의 움직임
 
     private void ApplyMove(Vector2 direction)
     {
-        if (_knockbackDuration > 0.0f)
+        if (knockbackDuration > 0.0f)
         {
             direction += _knockBack;
         }
