@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPositionsRoot;
     private List<Transform> spawnPositions = new List<Transform>();
 
+    public List<GameObject> rewards = new List<GameObject>();
+
     private void Awake()
     {
         instance = this;
@@ -66,6 +68,8 @@ public class GameManager : MonoBehaviour
                 {
                     waveSpawnPosCount = waveSpawnPosCount + 1 > spawnPositions.Count ? waveSpawnPosCount : waveSpawnPosCount + 1;
                     waveSpawnCount = 0;
+
+                    CreateReward();
                 }
                 Debug.Log("Test1");
 
@@ -127,5 +131,13 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+    void CreateReward()
+    {
+        int idx = Random.Range(0, rewards.Count);
+        int posIdx = Random.Range(0, spawnPositions.Count);
+
+        GameObject obj = rewards[idx];
+        Instantiate(obj, spawnPositions[posIdx].position, Quaternion.identity);
     }
 }
